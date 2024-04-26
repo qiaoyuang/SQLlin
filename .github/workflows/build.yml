@@ -81,7 +81,7 @@ jobs:
         with:
           api-level: 34
           target: google_apis
-          arch: arm64-v8
+          arch: arm64-v8a
           profile: pixel_8_pro
           emulator-build: 11698152
           force-avd-creation: false
@@ -94,7 +94,7 @@ jobs:
         with:
           api-level: 34
           target: google_apis
-          arch: arm64-v8
+          arch: arm64-v8a
           profile: pixel_8_pro
           emulator-build: 11698152
           force-avd-creation: false
