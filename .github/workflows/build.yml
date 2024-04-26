@@ -18,7 +18,7 @@ env:
 jobs:
 
   build-on-macos:
-    runs-on: macos-13
+    runs-on: macos-latest
     timeout-minutes: 60
 
     steps:
@@ -48,19 +48,19 @@ jobs:
       - name: Build sqllin-driver
         run: ./gradlew :sqllin-driver:assemble -PonCICD
         
-      - name: Run sqllin-driver macOS X64 Tests
+      - name: Run sqllin-driver macOS arm64 Tests
         run: ./test_driver_macos.sh
 
-      - name: Run sqllin-driver JVM Unit Tests on macOS X64
+      - name: Run sqllin-driver JVM Unit Tests on macOS arm64
         run: ./test_driver_jvm.sh
 
       - name: Build sqllin-dsl
         run: ./gradlew :sqllin-dsl:assemble -PonCICD
 
-      - name: Run sqllin-dsl macOS X64 Tests
+      - name: Run sqllin-dsl macOS arm64 Tests
         run: ./test_dsl_macos.sh
 
-      - name: Run sqllin-dsl JVM Unit Tests on macOS X64
+      - name: Run sqllin-dsl JVM Unit Tests on macOS arm64
         run: ./test_dsl_jvm.sh
 
       - name: Gradle Cache
@@ -73,7 +73,7 @@ jobs:
           path: |
             ~/.android/avd/*
             ~/.android/adb*
-          key: avd-34
+          key: avd-34-arm64
 
       - name: Create AVD and Generate Snapshot for Caching
         if: steps.avd-cache.outputs.cache-hit != 'true'
@@ -81,12 +81,12 @@ jobs:
         with:
           api-level: 34
           target: google_apis
-          arch: x86_64
-          profile: pixel_6
+          arch: arm64-v8
+          profile: pixel_8_pro
           emulator-build: 11698152
           force-avd-creation: false
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
-          disable-animations: false
+          disable-animations: true
           script: echo "Generated AVD snapshot for caching."
 
       - name: Run Android 14 Instrumented Tests
@@ -94,8 +94,8 @@ jobs:
         with:
           api-level: 34
           target: google_apis
-          arch: x86_64
-          profile: pixel_6
+          arch: arm64-v8
+          profile: pixel_8_pro
           emulator-build: 11698152
           force-avd-creation: false
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
@@ -248,7 +248,7 @@ jobs:
           emulator-build: 11698152
           force-avd-creation: false
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
-          disable-animations: false
+          disable-animations: true
           script: echo "Generated AVD snapshot for caching."
 
       - name: Run Android 8 Instrumented Tests
