@@ -22,4 +22,4 @@ package com.ctrip.sqllin.sample
  */
 
 
-class Placeholder
+class PlaceholderJVM

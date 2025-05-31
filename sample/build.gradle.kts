@@ -1,10 +1,5 @@
-import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
-import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
-import org.jetbrains.kotlin.konan.target.HostManager
-import kotlin.collections.plusAssign
 
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
@@ -15,12 +10,10 @@ plugins {
 
 version = "1.0"
 
-@OptIn(ExperimentalKotlinGradlePluginApi::class)
 kotlin {
     jvmToolchain(21)
     androidTarget {
         publishLibraryVariants("release")
-        instrumentedTestVariant.sourceSetTree.set(KotlinSourceSetTree.test)
     }
 
     jvm {
@@ -77,18 +70,6 @@ android {
     }
     compileOptions {
         isCoreLibraryDesugaringEnabled = true
-    }
-}
-
-fun KotlinNativeTarget.setupNativeConfig() {
-    binaries {
-        all {
-            linkerOpts += when {
-                HostManager.hostIsLinux -> listOf("-lsqlite3", "-L$rootDir/libs/linux", "-L/usr/lib/x86_64-linux-gnu", "-L/usr/lib", "-L/usr/lib64")
-                HostManager.hostIsMingw -> listOf("-Lc:\\msys64\\mingw64\\lib", "-L$rootDir\\libs\\windows", "-lsqlite3")
-                else -> listOf("-lsqlite3")
-            }
-        }
     }
 }
 

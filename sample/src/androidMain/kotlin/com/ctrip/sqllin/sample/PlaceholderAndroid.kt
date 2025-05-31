@@ -21,4 +21,4 @@ package com.ctrip.sqllin.sample
  * @author Yuang Qiao
  */
 
-class Placeholder
+class PlaceholderAndroid
