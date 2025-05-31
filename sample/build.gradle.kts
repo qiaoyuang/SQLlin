@@ -1,5 +1,10 @@
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
+import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
+import org.jetbrains.kotlin.konan.target.HostManager
+import kotlin.collections.plusAssign
 
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
@@ -10,17 +15,39 @@ plugins {
 
 version = "1.0"
 
+@OptIn(ExperimentalKotlinGradlePluginApi::class)
 kotlin {
     jvmToolchain(21)
     androidTarget {
         publishLibraryVariants("release")
+        instrumentedTestVariant.sourceSetTree.set(KotlinSourceSetTree.test)
     }
+
     jvm {
         compilerOptions.jvmTarget.set(JvmTarget.JVM_11)
     }
+
     iosX64()
     iosArm64()
     iosSimulatorArm64()
+
+    macosX64()
+    macosArm64()
+
+    watchosArm32()
+    watchosArm64()
+    watchosX64()
+    watchosSimulatorArm64()
+    watchosDeviceArm64()
+
+    tvosArm64()
+    tvosX64()
+    tvosSimulatorArm64()
+
+    linuxX64()
+    linuxArm64()
+
+    mingwX64()
 
     compilerOptions {
         freeCompilerArgs.add("-Xexpect-actual-classes")
@@ -36,6 +63,7 @@ kotlin {
                 implementation(project(":sqllin-dsl"))
                 implementation(libs.kotlinx.serialization)
                 implementation(libs.kotlinx.coroutines)
+                implementation(kotlin("test"))
             }
         }
     }
@@ -49,6 +77,18 @@ android {
     }
     compileOptions {
         isCoreLibraryDesugaringEnabled = true
+    }
+}
+
+fun KotlinNativeTarget.setupNativeConfig() {
+    binaries {
+        all {
+            linkerOpts += when {
+                HostManager.hostIsLinux -> listOf("-lsqlite3", "-L$rootDir/libs/linux", "-L/usr/lib/x86_64-linux-gnu", "-L/usr/lib", "-L/usr/lib64")
+                HostManager.hostIsMingw -> listOf("-Lc:\\msys64\\mingw64\\lib", "-L$rootDir\\libs\\windows", "-lsqlite3")
+                else -> listOf("-lsqlite3")
+            }
+        }
     }
 }
 

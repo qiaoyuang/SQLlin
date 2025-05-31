@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Ctrip.com.
+ * Copyright (C) 2022 Ctrip.com.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,14 +14,19 @@
  * limitations under the License.
  */
 
-package com.ctrip.sqllin.dsl.sql
+package com.ctrip.sqllin.sample
 
-import com.ctrip.sqllin.dsl.annotation.KeyWordDslMaker
+import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.toKString
+import platform.posix.getcwd
 
 /**
- * Express "*" in SQL, and also as placeholder
+ * Linux platform-related functions
  * @author yaqiao
  */
 
-@KeyWordDslMaker
-public actual object X
+@OptIn(ExperimentalForeignApi::class)
+actual fun getPlatformStringPath(): String =
+    getcwd(null, 0u)?.toKString() ?: throw IllegalStateException("The temp path created error")
+
+internal actual val pathSeparator: Char = '/'

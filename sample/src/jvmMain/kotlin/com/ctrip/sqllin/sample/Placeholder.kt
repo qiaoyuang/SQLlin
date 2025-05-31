@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Ctrip.com.
+ * Copyright (C) 2025 Ctrip.com.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,14 +14,12 @@
  * limitations under the License.
  */
 
-package com.ctrip.sqllin.dsl.sql
-
-import com.ctrip.sqllin.dsl.annotation.KeyWordDslMaker
+package com.ctrip.sqllin.sample
 
 /**
- * Express "*" in SQL, and also as placeholder
- * @author yaqiao
+ * Just a placeholder
+ * @author Yuang Qiao
  */
 
-@KeyWordDslMaker
-public actual object X
+
+class Placeholder

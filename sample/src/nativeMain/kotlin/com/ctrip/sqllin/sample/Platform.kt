@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Ctrip.com.
+ * Copyright (C) 2022 Ctrip.com.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,14 +14,19 @@
  * limitations under the License.
  */
 
-package com.ctrip.sqllin.dsl.sql
-
-import com.ctrip.sqllin.dsl.annotation.KeyWordDslMaker
+package com.ctrip.sqllin.sample
 
 /**
- * Express "*" in SQL, and also as placeholder
+ * Some platform-related functions
  * @author yaqiao
  */
 
-@KeyWordDslMaker
-public actual object X
+/**
+ * Get the DatabasePath
+ */
+expect fun getPlatformStringPath(): String
+
+/**
+ * Get the file path separator, '\' in Windows, '/' in others
+ */
+internal expect val pathSeparator: Char

@@ -21,6 +21,7 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import androidx.test.platform.app.InstrumentationRegistry
 import com.ctrip.sqllin.driver.toDatabasePath
+import com.ctrip.sqllin.sample.CommonBasicTest
 import org.junit.After
 import org.junit.Before
 import org.junit.Test

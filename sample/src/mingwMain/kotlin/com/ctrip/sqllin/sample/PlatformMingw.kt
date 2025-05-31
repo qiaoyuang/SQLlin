@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Ctrip.com.
+ * Copyright (C) 2022 Ctrip.com.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,14 +14,19 @@
  * limitations under the License.
  */
 
-package com.ctrip.sqllin.dsl.sql
+package com.ctrip.sqllin.sample
 
-import com.ctrip.sqllin.dsl.annotation.KeyWordDslMaker
+import kotlinx.cinterop.*
+import platform.posix._wgetcwd
 
 /**
- * Express "*" in SQL, and also as placeholder
+ * Windows platform-related functions
+ * The doc of _getcwd: https://learn.microsoft.com/en-us/cpp/c-runtime-library/reference/getcwd-wgetcwd?view=msvc-170
  * @author yaqiao
  */
 
-@KeyWordDslMaker
-public actual object X
+@OptIn(ExperimentalForeignApi::class)
+actual fun getPlatformStringPath(): String =
+    _wgetcwd(null, 0)?.toKString() ?: throw IllegalStateException("Get database path wrong")
+
+internal actual val pathSeparator: Char = '\\'

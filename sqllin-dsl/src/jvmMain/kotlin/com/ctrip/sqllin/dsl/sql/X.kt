@@ -16,9 +16,12 @@
 
 package com.ctrip.sqllin.dsl.sql
 
+import com.ctrip.sqllin.dsl.annotation.KeyWordDslMaker
+
 /**
  * Express "*" in SQL, and also as placeholder
  * @author yaqiao
  */
 
+@KeyWordDslMaker
 public actual object X
