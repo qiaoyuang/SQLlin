@@ -74,7 +74,7 @@ kotlin {
         }
         commonTest.dependencies {
             implementation(kotlin("test"))
-            //implementation(project(":sample"))
+            implementation(project(":sample"))
         }
         androidInstrumentedTest {
             dependencies {
