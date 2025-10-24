@@ -195,7 +195,7 @@ jobs:
             ${{ runner.os }}-konan-
 
       - name: Build sqllin-driver
-        run: ./gradlew :sqllin-driver:assemble -PonCICD
+        run: ./gradlew :sqllin-driver:assemble
 
       - name: Run sqllin-driver Linux X64 Tests
         run: ./test_driver_linux.sh
@@ -204,7 +204,7 @@ jobs:
         run: ./test_driver_jvm.sh
 
       - name: Build sqllin-dsl
-        run: ./gradlew :sqllin-dsl:assemble -PonCICD
+        run: ./gradlew :sqllin-dsl:assemble
 
       - name: Run sqllin-dsl Linux X64 Tests
         run: ./test_dsl_linux.sh
