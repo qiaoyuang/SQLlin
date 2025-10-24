@@ -84,7 +84,7 @@ kotlin {
     }
 }
 
-gradle.taskGraph.whenReady {
+/*gradle.taskGraph.whenReady {
     if (!project.hasProperty("onCICD"))
         return@whenReady
     tasks.forEach {
@@ -97,7 +97,7 @@ gradle.taskGraph.whenReady {
             }
         }
     }
-}
+}*/
 
 android {
     namespace = "com.ctrip.sqllin.driver"
