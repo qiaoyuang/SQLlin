@@ -203,9 +203,6 @@ jobs:
       - name: Run sqllin-driver JVM Unit Tests on Linux X64
         run: ./test_driver_jvm.sh
 
-      - name: Build sqllin-processor
-        run: ./gradlew :sqllin-processor:assemble
-
       - name: Build sqllin-dsl
         run: ./gradlew :sqllin-dsl:assemble -PonCICD
 
@@ -214,6 +211,9 @@ jobs:
 
       - name: Run sqllin-dsl JVM Unit Tests on Linux X64
         run: ./test_dsl_jvm.sh
+
+      - name: Build sqllin-processor
+        run: ./gradlew :sqllin-processor:assemble
 
       - name: AVD Cache
         uses: actions/cache@v4
